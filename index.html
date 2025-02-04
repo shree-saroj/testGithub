@@ -3,16 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Will You Be My Valentine? ❤️</title>
+    <title>Will You Be My Valentine? 💖</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Comic Sans MS", cursive, sans-serif;
         text-align: center;
         background-color: #ffe6e6;
         padding-top: 50px;
+        overflow: hidden;
+        transition: background 2s ease-in-out;
       }
       h1 {
-        font-size: 2em;
+        font-size: 2.5em;
         color: #ff4d4d;
       }
       .container {
@@ -26,35 +28,42 @@
         border: none;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
+        border-radius: 10px;
       }
       #yes-btn {
         background-color: #ff4d4d;
         color: white;
-        border-radius: 10px;
       }
       #no-btn {
         background-color: #444;
         color: white;
-        border-radius: 10px;
       }
       .hearts {
-        font-size: 3em;
-        opacity: 0;
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: floatUp 1.5s forwards;
+        font-size: 2.5em;
+        opacity: 0;
+        animation: floatUp 3s forwards;
       }
       @keyframes floatUp {
         0% {
-          transform: translate(-50%, 50%);
+          transform: translateY(50%);
           opacity: 0;
         }
         100% {
-          transform: translate(-50%, -100%);
+          transform: translateY(-100%);
           opacity: 1;
         }
+      }
+      #love-message {
+        display: none;
+        font-size: 2em;
+        color: white;
+        background: rgba(255, 77, 77, 0.9);
+        padding: 20px;
+        border-radius: 20px;
+        width: 80%;
+        margin: 20px auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
       }
     </style>
   </head>
@@ -74,21 +83,35 @@
         "Don't break my heart 💔",
         "Please say yes... 🥺",
         "You’re my everything! 💖",
+        "You're really making me cry now... 😭",
+        "Do you want me to be sad forever? 💔",
+        "Okay... Last chance! 🤧",
+        "Come on, Shree, say YES! 😘",
+        "Fine! You leave me no choice! 😤",
       ];
 
       function sayYes() {
-        document.body.innerHTML = "<h1>Yay! You said Yes! 🎉💖</h1>";
-        document.body.style.backgroundColor = "#ffcccc";
+        document.body.innerHTML = `
+                <h1>Shree, You Said YES! ❤️</h1>
+                <p id="love-message">You have made me the happiest person in the world! 💕<br>
+                I promise to love you forever and ever! 💖✨<br><br>
+                <strong>I LOVE YOU, SHREE! 😘❤️</strong></p>
+            `;
 
-        for (let i = 0; i < 10; i++) {
+        document.body.style.backgroundColor = "#ffcccc";
+        document.body.style.transition = "background 2s ease-in-out";
+
+        for (let i = 0; i < 15; i++) {
           let heart = document.createElement("div");
           heart.classList.add("hearts");
           heart.innerHTML = "❤️";
           heart.style.left = Math.random() * 100 + "vw";
           heart.style.top = Math.random() * 100 + "vh";
           document.body.appendChild(heart);
-          setTimeout(() => heart.remove(), 2000);
+          setTimeout(() => heart.remove(), 10000);
         }
+
+        document.getElementById("love-message").style.display = "block";
       }
 
       function sayNo() {
@@ -99,15 +122,23 @@
         if (noCount < noMessages.length) {
           noBtn.innerHTML = noMessages[noCount];
         } else {
-          noBtn.innerHTML = "Just say YES!";
+          noBtn.innerHTML = "Just say YES already!";
         }
 
-        yesBtn.style.fontSize = 1.5 + noCount * 0.5 + "em";
+        yesBtn.style.fontSize = 1.5 + noCount * 1 + "em";
         yesBtn.style.padding =
-          15 + noCount * 5 + "px " + (30 + noCount * 10) + "px";
+          15 + noCount * 15 + "px " + (30 + noCount * 25) + "px";
 
         if (noCount >= 5) {
-          noBtn.style.display = "none"; // Hide the No button after multiple clicks
+          noBtn.style.fontSize = 1.5 - noCount * 0.1 + "em";
+          noBtn.style.padding =
+            15 - noCount * 2 + "px " + (30 - noCount * 3) + "px";
+        }
+
+        if (noCount >= 8) {
+          yesBtn.style.width = "100vw";
+          yesBtn.style.height = "100vh";
+          yesBtn.innerHTML = "YOU HAVE NO CHOICE 😘";
         }
       }
     </script>
