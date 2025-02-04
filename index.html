@@ -3,9 +3,113 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Will You Be My Valentine? ❤️</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #ffe6e6;
+        padding-top: 50px;
+      }
+      h1 {
+        font-size: 2em;
+        color: #ff4d4d;
+      }
+      .container {
+        margin-top: 50px;
+      }
+      #yes-btn,
+      #no-btn {
+        font-size: 1.5em;
+        padding: 15px 30px;
+        margin: 10px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+      #yes-btn {
+        background-color: #ff4d4d;
+        color: white;
+        border-radius: 10px;
+      }
+      #no-btn {
+        background-color: #444;
+        color: white;
+        border-radius: 10px;
+      }
+      .hearts {
+        font-size: 3em;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: floatUp 1.5s forwards;
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translate(-50%, 50%);
+          opacity: 0;
+        }
+        100% {
+          transform: translate(-50%, -100%);
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>This is a test page</h1>
+    <h1>Will You Be My Valentine, Shree? ❤️</h1>
+
+    <div class="container">
+      <button id="yes-btn" onclick="sayYes()">Yes</button>
+      <button id="no-btn" onclick="sayNo()">No</button>
+    </div>
+
+    <script>
+      let noCount = 0;
+      const noMessages = [
+        "Are you sure? 😢",
+        "Think again... 😭",
+        "Don't break my heart 💔",
+        "Please say yes... 🥺",
+        "You’re my everything! 💖",
+      ];
+
+      function sayYes() {
+        document.body.innerHTML = "<h1>Yay! You said Yes! 🎉💖</h1>";
+        document.body.style.backgroundColor = "#ffcccc";
+
+        for (let i = 0; i < 10; i++) {
+          let heart = document.createElement("div");
+          heart.classList.add("hearts");
+          heart.innerHTML = "❤️";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.top = Math.random() * 100 + "vh";
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 2000);
+        }
+      }
+
+      function sayNo() {
+        noCount++;
+        const noBtn = document.getElementById("no-btn");
+        const yesBtn = document.getElementById("yes-btn");
+
+        if (noCount < noMessages.length) {
+          noBtn.innerHTML = noMessages[noCount];
+        } else {
+          noBtn.innerHTML = "Just say YES!";
+        }
+
+        yesBtn.style.fontSize = 1.5 + noCount * 0.5 + "em";
+        yesBtn.style.padding =
+          15 + noCount * 5 + "px " + (30 + noCount * 10) + "px";
+
+        if (noCount >= 5) {
+          noBtn.style.display = "none"; // Hide the No button after multiple clicks
+        }
+      }
+    </script>
   </body>
 </html>
